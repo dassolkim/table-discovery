@@ -2,7 +2,9 @@ const fh = require('../opendata-handler/fileHandler/file-handler')
 const path = require('path')
 const adaptor = require('./pg-handler/pg-adaptor')
 
-module.exports = {writeColumn, readColumn, writeValues}
+module.exports = {writeColumn, readColumn, writeValues, readValues}
+
+const defaultPath = path.join('C:/Users/kimds/nodeProject', 'data/')
 
 async function writeColumn(){
     
@@ -11,7 +13,7 @@ async function writeColumn(){
     const sourceInfo = {
         type: 'dataset',
         name: 'us_p1_20-37',
-        path: path.join('C:/Users/kimds/nodeProject', 'data/')
+        path: defaultPath
     }
     const fileWrite = fh.writeCols(col_data, sourceInfo)
     console.log(fileWrite)
@@ -24,12 +26,29 @@ async function writeColumn(){
 }
 // writeColumn()
 
+function readColumn(){
+
+    const sourceInfo = {
+        type: 'dataset',
+        name: 'us_p1_20-37'
+    }
+    
+    const fileRead = fh.readCols(defaultPath, sourceInfo)
+    // console.log(fileRead)
+    if (fileRead) {
+        console.log('column file read test is succeeded')
+    } else{
+        console.log('column file read is failed')
+    }
+    return fileRead
+}
+
 function writeValues(data){
 
     const sourceInfo = {
         type: 'dataset',
         name: 'us_p1_20-37_values',
-        path: path.join('C:/Users/kimds/nodeProject', 'data/')
+        path: defaultPath
     }
     const fileWrite = fh.writeCols(data, sourceInfo)
     console.log(fileWrite)
@@ -41,19 +60,20 @@ function writeValues(data){
     return fileWrite
 }
 
-function readColumn(){
+function readValues(){
 
     const sourceInfo = {
         type: 'dataset',
-        name: 'us_p1_20-37'
+        name: 'us_p1_20-37_values',
+        
     }
-    const filePath = path.join('C:/Users/kimds/nodeProject', 'data/')
-    const fileRead = fh.readCols(filePath, sourceInfo)
+    // const path = path.join('C:/Users/kimds/nodeProject', 'data/')
+    const fileRead = fh.readCols(defaultPath, sourceInfo)
     // console.log(fileRead)
     if (fileRead) {
-        console.log('column file read test is succeeded')
+        console.log('read values test is succeeded')
     } else{
-        console.log('column file read is failed')
+        console.log('read values test is failed')
     }
     return fileRead
 }

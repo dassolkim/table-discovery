@@ -1,18 +1,19 @@
 const cf = require('./col-to-file')
 
 async function main() {
-    const data = await cf.readColumn()
-    // return data
-    // console.log(data)
-    const dataset = JSON.parse(data)
-    // console.log(dataset)
-    // console.log(dataset.cols[0])
-    let values = []
 
+    
+/*     // read column data form files
+
+    const colFile = await cf.readColumn()
+    const colData = JSON.parse(colFile)
+
+    // write value data to file
+    let values = []
     let i = 0
 
     while (i < 18) {
-        values.push(dataset.cols[i].values)
+        values.push(colData.cols[i].values)
         i++
     }
     console.log(values.length)
@@ -21,17 +22,23 @@ async function main() {
         console.log('file-writer test is succeeded')
     } else {
         console.log('file-writer is failed')
-    }
+    } */
 
-    /* const val_20 = dataset.cols[0].values
-    const val_21 = dataset.cols[1].values
-    const val_22 = dataset.cols[2].values
-    const val_23 = dataset.cols[3].values
-    const val_24 = dataset.cols[4].values
-    const val_25 = dataset.cols[5].values
-    const val_26 = dataset.cols[6].values
-    const val_27 = dataset.cols[7].values
-    const val_28 = dataset.cols[8].values */
+    /**
+     * memory allocation error
+     * node minhash-test.js --max-old-space-size=1200000
+     * */
+
+    const values_file = await cf.readValues()
+    const value_list = JSON.parse(values_file)
+    if (values_file) {
+        console.log('file-writer test is succeeded')
+    } else {
+        console.log('file-writer is failed')
+    }
+    console.log(value_list)
+   
+   
 
 }
 if (require.main == module) {
