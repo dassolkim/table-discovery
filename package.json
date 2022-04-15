@@ -1,0 +1,23 @@
+{
+  "name": "table-discovery-odl",
+  "version": "1.0.0",
+  "description": "***\r ### Related table discovery in open data lake",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dassolkim/table-discovery.git"
+  },
+  "author": "dasol kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dassolkim/table-discovery/issues"
+  },
+  "homepage": "https://github.com/dassolkim/table-discovery#readme",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "pg": "^8.7.3"
+  }
+}
