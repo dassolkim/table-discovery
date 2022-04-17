@@ -2,13 +2,13 @@ const cf = require('./col-to-file')
 
 module.exports = { extractValues, extractOriginalValues }
 
-async function extractValues(num_tables, col_file_name, val_file_name) {
+async function extractValues(num_tables, file_name) {
     /**
      * read column data form files
      * if memory allocation error occurs --> node minhash-test.js --max-old-space-size=1200000
      */
 
-    const colFile = await cf.readColumn(col_file_name)
+    const colFile = await cf.readColumn(file_name)
     const colData = JSON.parse(colFile)
     /**
      * write value data to file
@@ -25,7 +25,7 @@ async function extractValues(num_tables, col_file_name, val_file_name) {
             i++
         }
         console.log(values.length)
-        const write_value = await cf.writeValues(values, val_file_name)
+        const write_value = await cf.writeValues(values, file_name)
         if (write_value) {
             console.log('file-writer test is succeeded')
             return true
@@ -36,13 +36,13 @@ async function extractValues(num_tables, col_file_name, val_file_name) {
     }
 }
 
-async function extractOriginalValues(num_tables, val_file_name, origin_val_file_name) {
+async function extractOriginalValues(num_tables, file_name, origin_file_name) {
     /**
      * remove airbyte info
      * original column data to file
      */
 
-    const values_file = await cf.readValues(val_file_name)
+    const values_file = await cf.readValues(file_name)
     const value_list = JSON.parse(values_file)
     if (values_file) {
         console.log('file-reader test is succeeded')
@@ -53,7 +53,7 @@ async function extractOriginalValues(num_tables, val_file_name, origin_val_file_
     let z = 0
     let v_list = []
     while (x < num_tables) {
-        v_list[x] = value_list.cols[x]
+        v_list[x] = value_list[x]
         while (z < 10) {
             v_list[x][z] = v_list[x][z].slice(0, -4)
             z++
@@ -62,7 +62,7 @@ async function extractOriginalValues(num_tables, val_file_name, origin_val_file_
     }
 
     // write original values
-    const write_original_values = await cf.writeOriginalValues(v_list, origin_val_file_name)
+    const write_original_values = await cf.writeOriginalValues(v_list, origin_file_name)
     if (write_original_values) {
         console.log('file-writer test is succeeded')
         return true

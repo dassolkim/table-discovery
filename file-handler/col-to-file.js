@@ -9,11 +9,11 @@ const defaultPath = path.join('C:/Users/kimds/nodeProject', 'data/')
 val_file_name: us_p1_20-37_values
 origin_val_file_name: us_p1_20-37_original_values */
 
-async function writeColumn(data, col_file_name){
+async function writeColumn(data, file_name){
     
     const sourceInfo = {
         type: 'dataset',
-        name: col_file_name,
+        name: file_name,
         path: defaultPath
     }
     const fileWrite = fh.writeCols(data, sourceInfo)
@@ -25,11 +25,11 @@ async function writeColumn(data, col_file_name){
     }
 }
 
-async function readColumn(col_file_name){
+async function readColumn(file_name){
 
     const sourceInfo = {
         type: 'dataset',
-        name: col_file_name
+        name: file_name
     }
     
     const fileRead = fh.readCols(defaultPath, sourceInfo)
@@ -42,14 +42,14 @@ async function readColumn(col_file_name){
     return fileRead
 }
 
-async function writeValues(data, val_file_name){
+async function writeValues(data, file_name){
 
     const sourceInfo = {
         type: 'dataset',
-        name: val_file_name,
+        name: file_name,
         path: defaultPath
     }
-    const fileWrite = fh.writeCols(data, sourceInfo)
+    const fileWrite = fh.writeValues(data, sourceInfo)
     console.log(fileWrite)
     if (fileWrite) {
         console.log('write values succeeded')
@@ -59,15 +59,14 @@ async function writeValues(data, val_file_name){
     return fileWrite
 }
 
-async function readValues(val_file_name){
+async function readValues(file_name){
 
     const sourceInfo = {
         type: 'dataset',
-        name: val_file_name,
+        name: file_name,
         
     }
-    // const path = path.join('C:/Users/kimds/nodeProject', 'data/')
-    const fileRead = fh.readCols(defaultPath, sourceInfo)
+    const fileRead = fh.readValues(defaultPath, sourceInfo)
     // console.log(fileRead)
     if (fileRead) {
         console.log('read values succeeded')
@@ -77,14 +76,14 @@ async function readValues(val_file_name){
     return fileRead
 }
 
-async function writeOriginalValues(data, origin_val_file_name){
+async function writeOriginalValues(data, original_file_name){
 
     const sourceInfo = {
         type: 'dataset',
-        name: origin_val_file_name,
+        name: origin_file_name,
         path: defaultPath
     }
-    const fileWrite = fh.writeCols(data, sourceInfo)
+    const fileWrite = fh.writeValues(data, sourceInfo)
     console.log(fileWrite)
     if (fileWrite) {
         console.log('write original values is succeeded')
@@ -94,14 +93,13 @@ async function writeOriginalValues(data, origin_val_file_name){
     return fileWrite
 }
 
-async function readOriginalValues(origin_val_file_name){
+async function readOriginalValues(origin_file_name){
 
     const sourceInfo = {
         type: 'dataset',
-        name: origin_val_file_name
+        name: origin_file_name
     }
-    const fileRead = fh.readCols(defaultPath, sourceInfo)
-    // console.log(fileRead)
+    const fileRead = fh.readValues(defaultPath, sourceInfo)
     if (fileRead) {
         console.log('read original values is succeeded')
     } else{
