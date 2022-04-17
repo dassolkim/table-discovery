@@ -18,14 +18,14 @@ async function query(q, client) {
     return res
 }
 
-async function genQuery(start, end) {
+async function genQuery(t_name, start, end) {
     try {
         const client = await config.pool.connect()
         let i = start
-        const d_t_name = 'us_p1_csv_'
+        const d_t_name = t_name //'us_p1_csv_'
         const data = []
-        // range us_p1_csv_20-38
-        while (i < end) {
+        // range us_p1_csv_20-37
+        while (i <= end) {
             const t_name = d_t_name + i
             const result = await query(`SELECT * FROM ${t_name} LIMIT 10`, client)
             if (result) {
