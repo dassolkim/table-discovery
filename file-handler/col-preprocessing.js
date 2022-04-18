@@ -50,14 +50,21 @@ async function extractOriginalValues(num_tables, num_rows, file_name, origin_fil
         console.log('file-reader is failed')
     }
     let v_list = value_list
-    let temp
+    // let origin
+    let temp = []
     for(let x =0; x < num_tables; x++) {
         for(let z = 0; z < num_rows; z++){
-            temp = value_list[x][z].slice(0, -4)
-            v_list[x][z] = temp
+            temp = v_list[x][z]
+            if(temp){
+                const sliced = temp.slice(0, -4)
+                // const sliced = Object.fromEntries(
+                //     Object.entries(temp).slice(0, -4)
+                // )
+                v_list[x][z] = sliced
+            }       
         }
     }
-    
+
     // fix logic
     /* while (x < num_tables) {
         v_list[x] = value_list[x]
