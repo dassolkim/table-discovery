@@ -36,7 +36,7 @@ async function extractValues(num_tables, file_name) {
     }
 }
 
-async function extractOriginalValues(num_tables, file_name, origin_file_name) {
+async function extractOriginalValues(num_tables, num_rows, file_name, origin_file_name) {
     /**
      * remove airbyte info
      * original column data to file
@@ -49,17 +49,27 @@ async function extractOriginalValues(num_tables, file_name, origin_file_name) {
     } else {
         console.log('file-reader is failed')
     }
-    let x = 0
-    let z = 0
-    let v_list = []
-    while (x < num_tables) {
+    let v_list = value_list
+    let temp
+    for(let x =0; x < num_tables; x++) {
+        for(let z = 0; z < num_rows; z++){
+            temp = value_list[x][z].slice(0, -4)
+            v_list[x][z] = temp
+        }
+    }
+    
+    // fix logic
+    /* while (x < num_tables) {
         v_list[x] = value_list[x]
-        while (z < 10) {
-            v_list[x][z] = v_list[x][z].slice(0, -4)
+        while (z < num_rows) {
+            v_list[x][z] = value_list[x][z].slice(0, -4)
+            if(x == 2){
+                console.log(v_list[x][z])
+            }
             z++
         }
         x++
-    }
+    } */
 
     // write original values
     const write_original_values = await cf.writeOriginalValues(v_list, origin_file_name)

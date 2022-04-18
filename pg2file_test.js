@@ -9,7 +9,7 @@ async function main() {
     const file_name = t_name + '6-8'
     const num_tables = 3
     const origin_file_name = file_name + '_original'
-
+    const num_rows = 10
     // qeury generation and write columns to file
     const col_data = await adaptor.genQuery(t_name, 6, 8)
     const write_cols = await fh.writeColumn(col_data, file_name)
@@ -46,20 +46,18 @@ async function main() {
     console.log(read_value)
 
     // write original values to file
-    const write_origin_value = await cp.extractOriginalValues(num_tables, file_name, origin_file_name)
+    const write_origin_value = await cp.extractOriginalValues(num_tables, num_rows, file_name, origin_file_name)
     if (write_origin_value) {
         console.log('write original values to file test is succeeded')
     } else {
         console.log('write original values to file test is failed')
     }
-    
+
     // read original values from file
     const r_ori_val = await fh.readOriginalValues(origin_file_name)
-    console.log(r_ori_val)
-    // const j_ori_obj = JSON.parse(r_ori_val)
-    // // console.log(j_ori_obj.cols[num_tables -3])
-    // // console.log(j_ori_obj.cols[num_tables -2])
-    // // console.log(j_ori_obj.cols[num_tables -1])
+
+    const j_ori_obj = JSON.parse(r_ori_val)
+    console.log(j_ori_obj)
 
 }
 if (require.main == module) {
